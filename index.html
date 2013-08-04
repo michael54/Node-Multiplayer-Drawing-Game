@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Node.js Multiplayer Drawing Game | iDo</title>
+        
+        <!-- The stylesheets -->
+        <link rel="stylesheet" href="assets/css/styles.min.css" />
+        <link type="text/css" rel="stylesheet" href="assets/miniColors/jquery.miniColors.min.css" />
+
+        <!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+		<div id="cursors">
+	    	<!-- The mouse pointers will be created here -->
+		</div>
+
+		<!-- The canvas to draw somethin -->
+		<canvas id="paper" width="1900" height="1000">
+			Your browser needs to support canvas for this to work!
+		</canvas>
+
+		<!-- Color picker -->
+		<p style="position: absolute; right: 10px; top: 10px; margin-left: 10px;">
+			Color:
+			<input type="hidden" id="color" class="color-picker" />		
+		</p>
+
+		<!-- Save image button -->
+		<div id="save" style="position: absolute; left: 10px; top: 10px; margin-left: 10px;"><button>Save</button></div>
+		
+		<!-- Count number of online users -->
+		<div id="count">1 User Online</div>
+		
+		<!-- Chat box	 -->
+		<ul id="log"></ul>
+		<input id="message" name="message" type="text" placeholder="Type a message and hit Enter...">
+		<input id="submit" name="submit" type="submit" value="Logout">
+		<input id="nickname" name="nickname" type="text" placeholder="Type your nickname and login...">
+		<input id="login" name="login" type="submit" value="Login">
+
+		<!-- Instructions -->
+		<hgroup id="instructions">		
+			<h1>Draw anywhere!</h1>
+			<h2>You will see everyone else who's doing the same.</h2>
+			<h3>Tips: Pick your favourite color at top right cornor.</h3>
+			<h3>Save the drawing by pressing the save button.</h3>
+			<h3>You can also chat with people who is drawing</h3>
+			<h3>If the stage gets dirty, simply reload the page</h3>
+		</hgroup>
+		
+        <footer>
+	        <h2>Group <a href="http://cmpt470.csil.sfu.ca:8014"><i><b>iDo</b></i></a>| <a href="http://nodejs.org/">Node.js</a> Demo| See our <a href="http://cmpt470.csil.sfu.ca:8014/blog/?p=8"><i><b>Blog</b></i></a> for Technology Comparsion</h2>
+	        <a class="tzine" href="http://tutorialzine.com/2012/08/nodejs-drawing-game/">Based on <i>Tutorial<b>zine</b></i></a>
+        </footer>
+        
+
+        <!-- JavaScript includes. Notice that socket.io.js is served by node.js -->
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/jquery.cookie.min.js"></script>
+		<script type="text/javascript" src="assets/js/script.min.js"></script>
+		<script type="text/javascript" src="assets/miniColors/jquery.miniColors.min.js"></script>
+		
+		<!-- Script to enable the color picker -->
+		<script type="text/javascript">			
+			$(document).ready(function() {
+				// Enabling miniColors
+				function init() {					
+					// Enabling miniColors
+					$('.color-picker').miniColors();
+				};			
+				init();
+			});
+		</script>
+
+		<!-- Script to enable save button -->
+		<script type="text/javascript">
+			window.onload = function() {
+				var s = document.getElementById("save");
+				s.onclick = function() {
+	        		var canvas = document.getElementById("paper");
+	        		var dataUrl = canvas.toDataURL();
+
+					window.open(dataUrl, "toDataURL() image", "width=600, height=200");
+	        	};
+	        };
+		</script>
+    </body>
+</html>
